@@ -73,7 +73,7 @@ const Register = () => {
         email,
         password
       }, config);
-      console.log("object")
+
       if (data.success) {
         // Assuming the password isn't included, if it is, it should be removed before storing
         localStorage.setItem("user", JSON.stringify(data.user));
