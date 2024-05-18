@@ -38,15 +38,6 @@ app.use(cors({
 
 // Security middleware (consider customizing helmet options for production)
 app.use(helmet());
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https://api.dicebear.com"],
-      // other directives can be added here as needed
-    }
-  })
-);
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // Logging middleware (use a more concise logging format in production)
