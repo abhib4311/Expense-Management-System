@@ -57,7 +57,7 @@ const Login = () => {
         email: email,
         password: password
       }, config);
-      console.log(data)
+  
       localStorage.setItem("user", JSON.stringify(data.user));
       if (data.success) {
         localStorage.setItem("user", JSON.stringify(data.user)); // Store user data in local storage
