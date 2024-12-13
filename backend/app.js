@@ -12,18 +12,15 @@ dotenv.config();
 
 const { json, urlencoded } = bodyParser;
 const app = express();
-// Port configuration (consider using a default port if not defined in .env)
+
 const port = process.env.PORT || 5000; // 5000 as a fallback
 
-// Connect to database (assuming connectDB is your function)
+
 connectDB();
 
-// CORS configuration (adjust allowed origins based on your needs)
-const allowedOrigins = [
-  "http://localhost:3000" // Replace with your production domain(s)
-];
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: "*",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
@@ -56,5 +53,5 @@ app.get("/", (req, res) => {
 });
 // Start the server (consider using a process manager like PM2 in production)
 app.listen(port, () => {
-  console.log(`Server is listening on http://localhost:${port}`);
+  console.log(`Server is listening on ${port}`);
 });
