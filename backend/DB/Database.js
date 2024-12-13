@@ -1,10 +1,19 @@
 import mongoose from "mongoose";
-export const connectDB = async (req, res) => {
-    const uri = "mongodb+srv://abhisheksingh4311:nagpur420@expense-tracker.y6ffhlh.mongodb.net/?retryWrites=true&w=majority";
-    const db = uri;
+import dotenv from "dotenv";
 
-    const { connection } = await mongoose.connect(db, { useNewUrlParser: true });
+dotenv.config();
 
-    console.log(`MongoDB Connected to ${connection.host}`);
+export const connectDB = async () => {
+    try {
+        const uri = process.env.MONGO_URI;
 
-}
+        const { connection } = await mongoose.connect(uri, {
+            useUnifiedTopology: true,
+        });
+
+        console.log(`MongoDB Connected to ${connection.host}`);
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
+    }
+};

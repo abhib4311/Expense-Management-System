@@ -1,22 +1,14 @@
-// Import statements (using import for Node.js v14+)
 import express from 'express';
 import cors from 'cors';
-import { connectDB } from './DB/Database.js'; // Assuming this is a function for database connection
-import bodyParser from 'body-parser'; // Use destructuring for a cleaner approach
+import { connectDB } from './DB/Database.js';
+import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import transactionRoutes from './Routers/Transactions.js'; // Assuming these are your transaction routes
 import userRoutes from './Routers/userRouter.js'; // Assuming these are your user routes
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
-// If your current file's URL is `import.meta.url`
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-// Load environment variables (ensure .env file is excluded from version control)
-dotenv.config({ path: './config/config.env' });
+dotenv.config();
 
 const { json, urlencoded } = bodyParser;
 const app = express();
@@ -59,27 +51,9 @@ app.use((err, req, res, next) => {
 
 // --------------------------deployment------------------------------
 
-const NODE_ENV = process.env.NODE_ENV || "production";
-
-// Resolve the directory for static assets
-const buildPath = path.resolve(__dirname, "../frontend/build");
-
-if (NODE_ENV === "production") {
-  // Serve static files from the React application
-  app.use(express.static(buildPath));
-
-  // Serve the React application index.html on all other routes
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(buildPath, "index.html"));
-  });
-} else {
-  // A simple endpoint to check if the API is running
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
-  console.log(`Server running in ${NODE_ENV} mode`);
-}
-
+app.get("/", (req, res) => {
+  res.send("API is running..");
+});
 // Start the server (consider using a process manager like PM2 in production)
 app.listen(port, () => {
   console.log(`Server is listening on http://localhost:${port}`);

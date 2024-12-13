@@ -5,8 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node ./backend/app.js",
-    "build": " npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend"
+    "start": "node app.js",
+    "build": " npm install --legacy-peer-deps"
   },
   "keywords": [],
   "author": "",
